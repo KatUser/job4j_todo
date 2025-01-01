@@ -25,7 +25,11 @@
             <table class="table">
                 <tbody>
                 <tr>
-                    <th scope="col" th:text=" 'Информация о задании: ' + ${task.description}"/>
+                    <th scope="col" th:text=" 'Название задания: ' + ${task.title}"/>
+                <tr>
+                    <td scope="row">Описание</td>
+                    <td th:text="${task.description}"/>
+                </tr>
                 <tr>
                     <td scope="row">Дата создания</td>
                     <td th:text="${task.created}"/>
