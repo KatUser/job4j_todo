@@ -1,17 +1,20 @@
 package ru.job4j.todo.model;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+@Getter
 @Entity
 @Table(name = "task")
-@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Exclude
     private Integer id;
     private String title;
     private String description;
