@@ -20,4 +20,8 @@ public interface Storage {
     boolean setTaskAsDone(int id);
 
     Collection<Task> findAllTasks();
+
+    Collection<Task> findCompletedTasks();
+
+    Collection<Task> findNewTasks();
 }

@@ -22,22 +22,25 @@ public class TaskController {
         return "tasks/list";
     }
 
-    @GetMapping("/alltasks")
+    @GetMapping("/all")
     public String getAllTasks(Model model) {
-        model.addAttribute("tasks", taskService.findAllTasks());
+        model.addAttribute("tasks",
+                taskService.findAllTasks());
         return "tasks/alltasks";
     }
 
-    @GetMapping("/completedtasks")
+    @GetMapping("/completed")
     public String getCompletedTasks(Model model) {
-        model.addAttribute("tasks", taskService.findAllTasks());
-        return "tasks/completedtasks";
+        model.addAttribute("tasks",
+                taskService.findCompletedTasks());
+        return "tasks/alltasks";
     }
 
-    @GetMapping("/newtasks")
+    @GetMapping("/new")
     public String getNewTasks(Model model) {
-        model.addAttribute("tasks", taskService.findAllTasks());
-        return "tasks/newtasks";
+        model.addAttribute("tasks",
+                taskService.findNewTasks());
+        return "tasks/alltasks";
     }
 
     @GetMapping("/create")
@@ -91,7 +94,7 @@ public class TaskController {
                          Model model) {
         var modelAttTask = ((Task) model.getAttribute("ru/job4j/todo/task"));
         taskService.update(task.getId(), modelAttTask);
-        return "redirect:/tasks/alltasks";
+        return "redirect:/tasks/all";
     }
 
     @GetMapping("/settaskasdone/{id}")

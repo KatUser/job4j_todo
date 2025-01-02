@@ -126,4 +126,38 @@ public class TaskStorage implements Storage {
         }
         return foundTasks;
     }
+
+    @Override
+    public List<Task> findCompletedTasks() {
+        Session session = sessionFactory.openSession();
+        List<Task> foundTasks = Collections.emptyList();
+        try {
+            session.beginTransaction();
+            foundTasks = session.createQuery("""
+                    FROM Task AS t
+                    WHERE t.done = true""", Task.class)
+                    .getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+        return foundTasks;
+    }
+
+    @Override
+    public List<Task> findNewTasks() {
+        Session session = sessionFactory.openSession();
+        List<Task> foundTasks = Collections.emptyList();
+        try {
+            session.beginTransaction();
+            foundTasks = session.createQuery("""
+                    FROM Task AS t
+                    WHERE t.done = false""", Task.class)
+                    .getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+        return foundTasks;
+    }
 }
