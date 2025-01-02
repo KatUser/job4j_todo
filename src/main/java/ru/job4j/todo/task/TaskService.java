@@ -1,4 +1,4 @@
-package ru.job4j.todo.service.interfaces;
+package ru.job4j.todo.task;
 
 import ru.job4j.todo.model.Task;
 

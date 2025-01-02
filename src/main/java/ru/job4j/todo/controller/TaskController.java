@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.todo.model.Task;
-import ru.job4j.todo.service.interfaces.TaskService;
+import ru.job4j.todo.task.TaskService;
 
 @Controller
 @RequestMapping("/tasks")
@@ -89,7 +89,7 @@ public class TaskController {
     @PostMapping("/update")
     public String update(@ModelAttribute Task task,
                          Model model) {
-        var modelAttTask = ((Task) model.getAttribute("task"));
+        var modelAttTask = ((Task) model.getAttribute("ru/job4j/todo/task"));
         taskService.update(task.getId(), modelAttTask);
         return "redirect:/tasks/alltasks";
     }

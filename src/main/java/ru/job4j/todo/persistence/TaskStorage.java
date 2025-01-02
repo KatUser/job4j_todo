@@ -1,11 +1,10 @@
-package ru.job4j.todo.repository.impl;
+package ru.job4j.todo.persistence;
 
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.todo.model.Task;
-import ru.job4j.todo.repository.interfaces.Storage;
 
 import java.util.Collections;
 import java.util.List;

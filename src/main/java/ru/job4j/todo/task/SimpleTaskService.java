@@ -1,9 +1,8 @@
-package ru.job4j.todo.service.impl;
+package ru.job4j.todo.task;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.model.Task;
-import ru.job4j.todo.repository.impl.TaskStorage;
-import ru.job4j.todo.service.interfaces.TaskService;
+import ru.job4j.todo.persistence.TaskStorage;
 
 import java.util.Collection;
 import java.util.Optional;

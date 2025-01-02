@@ -1,4 +1,4 @@
-package ru.job4j.todo.repository.interfaces;
+package ru.job4j.todo.persistence;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.todo.model.Task;
