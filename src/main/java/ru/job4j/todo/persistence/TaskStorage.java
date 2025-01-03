@@ -40,6 +40,7 @@ public class TaskStorage implements Storage {
                             "from Task AS t WHERE t.id = :fId", Task.class
                     ).setParameter("fId", id)
                     .uniqueResultOptional();
+            session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
         } finally {
