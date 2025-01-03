@@ -55,7 +55,7 @@
                         <div th:switch="${task.done}">
                             <p th:case="false">
                                 <a class="btn btn-success w-100"
-                                   th:href="@{/tasks/settaskasdone/{taskId}(taskId=${task.id})}">Выполнено</a>
+                                   th:href="@{/tasks/done/{taskId}(taskId=${task.id})}">Выполнено</a>
                         </div>
                     </div>
                     <div class="col-4">

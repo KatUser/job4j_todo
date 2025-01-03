@@ -100,7 +100,7 @@ public class TaskController {
         return "redirect:/tasks/all";
     }
 
-    @GetMapping("/settaskasdone/{id}")
+    @GetMapping("/done/{id}")
     public String setTaskAsDone(Model model, @PathVariable int id) {
         var taskIsSetAsDone = taskService.setTaskAsDone(id);
         if (!taskIsSetAsDone) {
