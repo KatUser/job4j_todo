@@ -31,8 +31,7 @@ public class TaskController {
 
     @GetMapping("/completed")
     public String getCompletedTasks(Model model) {
-        model.addAttribute("tasks",
-                taskService.findCompletedTasks());
+        model.addAttribute("tasks", taskService.findCompletedTasks());
         return "tasks/alltasks";
     }
 
