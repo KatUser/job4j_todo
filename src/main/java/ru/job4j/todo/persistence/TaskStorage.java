@@ -16,7 +16,7 @@ public class TaskStorage implements Storage {
     private final SessionFactory sessionFactory;
 
     @Override
-    public Optional <Task> save(Task task) {
+    public Optional<Task> save(Task task) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();

@@ -17,12 +17,12 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public Optional <Task> save(Task task) {
+    public Optional<Task> save(Task task) {
         return storage.save(task);
     }
 
     @Override
-    public Optional <Task> findById(int id) {
+    public Optional<Task> findById(int id) {
         return storage.findById(id);
     }
 

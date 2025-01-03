@@ -72,7 +72,7 @@ public class TaskController {
     public String delete(@PathVariable int id, Model model) {
         var taskIsDeleted = taskService.deleteById(id);
         if (!taskIsDeleted) {
-            model.addAttribute("message","Не удалось удалить задание");
+            model.addAttribute("message", "Не удалось удалить задание");
             return "errors/404";
         }
         return "redirect:/tasks/all";

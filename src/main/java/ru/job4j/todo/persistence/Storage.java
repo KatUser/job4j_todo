@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface Storage {
 
-    Optional <Task> save(Task task);
+    Optional<Task> save(Task task);
 
     Optional<Task> findById(int id);
 
