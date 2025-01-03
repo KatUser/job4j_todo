@@ -38,8 +38,7 @@ public class TaskController {
 
     @GetMapping("/new")
     public String getNewTasks(Model model) {
-        model.addAttribute("tasks",
-                taskService.findNewTasks());
+        model.addAttribute("tasks", taskService.findNewTasks());
         return "tasks/alltasks";
     }
 
@@ -49,20 +48,18 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute Task task,
-                         Model model) {
-        try {
-            taskService.save(task);
-            return "redirect:/tasks";
-        } catch (Exception e) {
-            model.addAttribute("message", e.getMessage());
+    public String create(@ModelAttribute Task task, Model model) {
+        var savedTask = taskService.save(task);
+        if (savedTask.isEmpty()) {
+            model.addAttribute("message",
+                    "Не удалось создать задание попробуйте заново");
             return "errors/404";
         }
+        return "redirect:/tasks/all";
     }
 
     @GetMapping("/{id}")
-    public String getTaskByDescription(Model model,
-                                       @PathVariable int id) {
+    public String getTaskByDescription(Model model, @PathVariable int id) {
         var taskOptional = taskService.findById(id);
         if (taskOptional.isEmpty()) {
             model.addAttribute("message", "Такого задания нет");
@@ -73,9 +70,13 @@ public class TaskController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable int id) {
-        taskService.deleteById(id);
-        return "redirect:/tasks";
+    public String delete(@PathVariable int id, Model model) {
+        var taskIsDeleted = taskService.deleteById(id);
+        if (!taskIsDeleted) {
+            model.addAttribute("message","Не удалось удалить задание");
+            return "errors/404";
+        }
+        return "redirect:/tasks/all";
     }
 
     @GetMapping("/update/{id}")
@@ -90,22 +91,24 @@ public class TaskController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute Task task,
-                         Model model) {
-        var modelAttTask = ((Task) model.getAttribute("ru/job4j/todo/task"));
-        taskService.update(task.getId(), modelAttTask);
+    public String update(@ModelAttribute Task task, Model model) {
+        var taskIsUpdated = taskService.update(task.getId(), task);
+        if (!taskIsUpdated) {
+            model.addAttribute("message",
+                    "Не получилось отредактировать задание");
+            return "errors/404";
+        }
         return "redirect:/tasks/all";
     }
 
     @GetMapping("/settaskasdone/{id}")
     public String setTaskAsDone(Model model, @PathVariable int id) {
-        var taskOptional = taskService.findById(id);
-        if (taskOptional.isEmpty()) {
-            model.addAttribute("message", "Такого задания нет");
+        var taskIsSetAsDone = taskService.setTaskAsDone(id);
+        if (!taskIsSetAsDone) {
+            model.addAttribute("message", "Не удалось сменить статус задания");
             return "errors/404";
         }
-        taskService.setTaskAsDone(id);
-        return "redirect:/tasks/completedtasks";
+        return "redirect:/tasks/completed";
     }
 }
 
