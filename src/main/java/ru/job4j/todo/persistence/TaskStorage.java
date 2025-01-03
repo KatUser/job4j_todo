@@ -56,9 +56,11 @@ public class TaskStorage implements Storage {
             session.beginTransaction();
             affectedRows = session.createQuery("""
                             UPDATE Task
-                            SET description = :fDescription
+                            SET title = :fTitle,
+                            description = :fDescription
                             WHERE id = :fid
                             """)
+                    .setParameter("fTitle", task.getTitle())
                     .setParameter("fDescription", task.getDescription())
                     .setParameter("fid", id)
                     .executeUpdate();
