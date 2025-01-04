@@ -1,4 +1,4 @@
-package ru.job4j.todo.persistence;
+package ru.job4j.todo.persistence.task;
 
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
