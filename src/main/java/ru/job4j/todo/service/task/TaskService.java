@@ -6,7 +6,8 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface TaskService {
-    Optional<Task> save(Task task);
+
+    Optional<Task> create(Task task);
 
     Optional<Task> findById(int id);
 

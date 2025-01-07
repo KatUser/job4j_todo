@@ -16,18 +16,19 @@ public class HqlTaskTaskStorage implements TaskStorage {
     private final SessionFactory sessionFactory;
 
     @Override
-    public Optional<Task> save(Task task) {
+    public Optional<Task> create(Task task) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
             session.save(task);
             session.getTransaction().commit();
+            return Optional.of(task);
         } catch (Exception e) {
             session.getTransaction().rollback();
         } finally {
             session.close();
         }
-        return Optional.of(task);
+        return Optional.empty();
     }
 
     @Override

@@ -28,11 +28,11 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(Model model, @ModelAttribute User user, HttpServletRequest request) {
-        var userOptional = userService.save(user);
+        var userOptional = userService.create(user);
         if (userOptional.isEmpty()) {
             model.addAttribute("message",
                     "Такой логин уже зарегистрирован. Попробуйте другой.");
-            return "errors/404";
+            return "users/register";
         }
         var session = request.getSession();
         session.setAttribute("user", userOptional.get());

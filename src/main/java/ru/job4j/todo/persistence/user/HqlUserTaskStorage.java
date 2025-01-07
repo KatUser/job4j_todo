@@ -10,22 +10,23 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class HqlUserTaskStorage implements TaskStorage {
+public class HqlUserTaskStorage implements UserStorage {
     private final SessionFactory sessionFactory;
 
     @Override
-    public Optional<User> save(User user) {
+    public Optional<User> create(User user) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
             session.save(user);
             session.getTransaction().commit();
+            return Optional.of(user);
         } catch (Exception e) {
             session.getTransaction().rollback();
         } finally {
             session.close();
         }
-        return Optional.of(user);
+        return Optional.empty();
     }
 
     @Override

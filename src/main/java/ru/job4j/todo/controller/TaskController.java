@@ -46,7 +46,7 @@ public class TaskController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute Task task, Model model) {
-        var savedTask = taskService.save(task);
+        var savedTask = taskService.create(task);
         if (savedTask.isEmpty()) {
             model.addAttribute("message",
                     "Не удалось создать задание попробуйте заново");

@@ -15,8 +15,8 @@ public class SimpleTaskService implements TaskService {
     private final HqlTaskTaskStorage storage;
 
     @Override
-    public Optional<Task> save(Task task) {
-        return storage.save(task);
+    public Optional<Task> create(Task task) {
+        return storage.create(task);
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface TaskStorage {
 
-    Optional<Task> save(Task task);
+    Optional<Task> create(Task task);
 
     Optional<Task> findById(int id);
 

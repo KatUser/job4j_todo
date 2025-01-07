@@ -14,8 +14,8 @@ public class SimpleUserService implements UserService {
     private final HqlUserTaskStorage storage;
 
     @Override
-    public Optional<User> save(User user) {
-        return storage.save(user);
+    public Optional<User> create(User user) {
+        return storage.create(user);
     }
 
     @Override
