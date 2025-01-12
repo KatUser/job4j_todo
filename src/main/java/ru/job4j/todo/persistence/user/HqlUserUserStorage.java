@@ -18,7 +18,7 @@ public class HqlUserUserStorage implements UserStorage {
 
     private final SessionFactory sessionFactory;
     private final CrudRepository crudRepository;
-    static Logger LOGGER;
+    static Logger logger = Logger.getLogger(HqlUserUserStorage.class.getName());
 
     @Override
     public Optional<User> create(User user) {
@@ -27,7 +27,7 @@ public class HqlUserUserStorage implements UserStorage {
             crudRepository.run(session1 -> session.persist(user));
             return Optional.of(user);
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING,"что-то пошло не так" , e);
+            logger.log(Level.WARNING, "что-то пошло не так", e);
         }
         return Optional.empty();
     }
