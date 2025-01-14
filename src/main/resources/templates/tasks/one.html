@@ -41,6 +41,10 @@
                         <span th:case="false" th:text="'Ожидает' + ' выполнения'"/>
                     </td>
                 </tr>
+                <tr>
+                    <td scope="row">Автор задания</td>
+                    <td th:text="${task.user}"/>
+                </tr>
                 </tbody>
             </table>
             <div class="col-6">
