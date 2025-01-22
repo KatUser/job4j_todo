@@ -6,8 +6,6 @@ import ru.job4j.todo.model.Priority;
 import ru.job4j.todo.persistence.CrudRepository;
 
 import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
