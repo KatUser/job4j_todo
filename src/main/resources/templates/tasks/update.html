@@ -28,10 +28,19 @@
                        placeholder="Новое название для задания" required>
             </div>
             <div class="mb-3">
-                <label for="description" class="form-label"><b>Новое Описание</b></label>
+                <label for="title" class="form-label"><b>Новое Описание</b></label>
                 <input type="text" class="form-control" id="description" name="description"
                        placeholder="Новое описание для задания" required>
             </div>
+            <div class="mb-3">
+                <label for="title">Приоритет</label>
+                <select name="priority.id">
+                    <option th:each="priority :${priorities}"
+                            th:text="${priority.name}"
+                            th:value="${priority.id}">
+                </select>
+            </div>
+            <br>
             <div class="col-6">
                 <div class="row">
                     <div class="col-6">

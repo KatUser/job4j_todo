@@ -3,7 +3,7 @@ package ru.job4j.todo.service.task;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.model.Task;
-import ru.job4j.todo.persistence.task.HqlTaskTaskStorage;
+import ru.job4j.todo.persistence.task.HqlTaskStorage;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SimpleTaskService implements TaskService {
 
-    private final HqlTaskTaskStorage storage;
+    private final HqlTaskStorage storage;
 
     @Override
     public Optional<Task> create(Task task) {

@@ -3,7 +3,7 @@ package ru.job4j.todo.service.user;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.model.User;
-import ru.job4j.todo.persistence.user.HqlUserUserStorage;
+import ru.job4j.todo.persistence.user.HqlUserStorage;
 
 import java.util.Optional;
 
@@ -11,7 +11,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SimpleUserService implements UserService {
 
-    private final HqlUserUserStorage storage;
+    private final HqlUserStorage storage;
 
     @Override
     public Optional<User> create(User user) {

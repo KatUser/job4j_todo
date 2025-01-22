@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.model.User;
+import ru.job4j.todo.service.priority.PriorityService;
 import ru.job4j.todo.service.task.TaskService;
 
 @Controller
@@ -15,6 +16,8 @@ import ru.job4j.todo.service.task.TaskService;
 public class TaskController {
 
     private final TaskService taskService;
+
+    private final PriorityService priorityService;
 
     @GetMapping
     public String getAllTasksInLists() {
@@ -41,12 +44,15 @@ public class TaskController {
     }
 
     @GetMapping("/create")
-    public String getCreationPage() {
+    public String getCreationPage(Model model) {
+        model.addAttribute("priorities", priorityService.findAllPriorities());
         return "tasks/create";
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute Task task, Model model, @SessionAttribute User user) {
+    public String create(@ModelAttribute Task task,
+                         @SessionAttribute User user,
+                         Model model) {
         task.setUser(user);
         var savedTask = taskService.create(task);
         if (savedTask.isEmpty()) {
@@ -58,7 +64,7 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public String getTaskByDescription(Model model, @PathVariable int id) {
+    public String getTaskById(Model model, @PathVariable int id) {
         var taskOptional = taskService.findById(id);
         if (taskOptional.isEmpty()) {
             model.addAttribute("message", "Такого задания нет");
@@ -86,12 +92,14 @@ public class TaskController {
             return "errors/404";
         }
         model.addAttribute("task", taskOptional.get());
+        model.addAttribute("priorities", priorityService.findAllPriorities());
         return "tasks/update";
     }
 
     @PostMapping("/update")
     public String update(@ModelAttribute Task task, Model model) {
         var taskIsUpdated = taskService.update(task.getId(), task);
+        model.addAttribute("priorities", priorityService.findAllPriorities());
         if (!taskIsUpdated) {
             model.addAttribute("message",
                     "Не получилось отредактировать задание");

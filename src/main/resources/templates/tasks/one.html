@@ -45,6 +45,10 @@
                     <td scope="row">Автор задания</td>
                     <td th:text="${task.user}"/>
                 </tr>
+                <tr>
+                    <td scope="row">Приоритет</td>
+                    <td th:text="${task.priority.name}"/>
+                </tr>
                 </tbody>
             </table>
             <div class="col-6">

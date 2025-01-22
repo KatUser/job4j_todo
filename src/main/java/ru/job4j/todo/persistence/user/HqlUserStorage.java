@@ -14,11 +14,11 @@ import java.util.logging.Logger;
 
 @Repository
 @AllArgsConstructor
-public class HqlUserUserStorage implements UserStorage {
+public class HqlUserStorage implements UserStorage {
 
     private final SessionFactory sessionFactory;
     private final CrudRepository crudRepository;
-    static Logger logger = Logger.getLogger(HqlUserUserStorage.class.getName());
+    static Logger logger = Logger.getLogger(HqlUserStorage.class.getName());
 
     @Override
     public Optional<User> create(User user) {

@@ -30,6 +30,7 @@
                 <th scope="col">Дата создания</th>
                 <th scope="col">Статус выполнения</th>
                 <th scope="col">Автор задания</th>
+                <th scope="col">Приоритет</th>
             </tr>
             </thead>
             <tbody>
@@ -43,6 +44,7 @@
                     <span th:case="false" th:text="'Ожидает' + ' выполнения'"/>
                 </td>
                 <td th:text="${task.user}"/>
+                <td th:text="${task.priority.name}"/>
             </tr>
             </tbody>
         </table>
