@@ -5,10 +5,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.job4j.todo.model.Category;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.model.User;
+import ru.job4j.todo.service.category.CategoryService;
 import ru.job4j.todo.service.priority.PriorityService;
 import ru.job4j.todo.service.task.TaskService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -18,6 +23,8 @@ public class TaskController {
     private final TaskService taskService;
 
     private final PriorityService priorityService;
+
+    private final CategoryService categoryService;
 
     @GetMapping
     public String getAllTasksInLists() {
@@ -46,21 +53,26 @@ public class TaskController {
     @GetMapping("/create")
     public String getCreationPage(Model model) {
         model.addAttribute("priorities", priorityService.findAllPriorities());
+        model.addAttribute("categories", categoryService.findAllCategories());
         return "tasks/create";
     }
 
     @PostMapping("/create")
     public String create(@ModelAttribute Task task,
                          @SessionAttribute User user,
+                         @RequestParam List<Integer> categoriesId,
                          Model model) {
         task.setUser(user);
+        List<Category> categories = new ArrayList<>();
+        categoriesId.forEach(id -> categoryService.findCategoryById(id).ifPresent(categories::add));
+        task.setCategoriesList(categories);
         var savedTask = taskService.create(task);
         if (savedTask.isEmpty()) {
             model.addAttribute("message",
                     "Не удалось создать задание попробуйте заново");
             return "errors/404";
         }
-        return "redirect:/tasks/all";
+         return "redirect:/tasks/all";
     }
 
     @GetMapping("/{id}")
@@ -93,6 +105,7 @@ public class TaskController {
         }
         model.addAttribute("task", taskOptional.get());
         model.addAttribute("priorities", priorityService.findAllPriorities());
+        model.addAttribute("categories", categoryService.findAllCategories());
         return "tasks/update";
     }
 

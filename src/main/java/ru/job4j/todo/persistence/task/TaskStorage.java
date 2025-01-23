@@ -1,12 +1,10 @@
 package ru.job4j.todo.persistence.task;
 
-import org.springframework.stereotype.Repository;
 import ru.job4j.todo.model.Task;
 
 import java.util.Collection;
 import java.util.Optional;
 
-@Repository
 public interface TaskStorage {
 
     Optional<Task> create(Task task);
