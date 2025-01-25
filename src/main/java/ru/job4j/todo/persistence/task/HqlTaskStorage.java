@@ -25,7 +25,7 @@ public class HqlTaskStorage implements TaskStorage {
     @Override
     public Optional<Task> findById(int id) {
         return crudRepository.optional(
-                        "FROM Task t LEFT JOIN FETCH t.priority WHERE t.id = :fId",
+                        "SELECT DISTINCT t FROM Task t JOIN FETCH t.priority JOIN FETCH t.categoriesList WHERE t.id = :fId",
                         Task.class,
                         Map.of("fId", id)
                 );
@@ -69,7 +69,7 @@ public class HqlTaskStorage implements TaskStorage {
     @Override
     public List<Task> findAllTasks() {
         return crudRepository.query(
-                        "FROM Task t JOIN FETCH t.priority",
+                        "SELECT DISTINCT t FROM Task t JOIN FETCH t.priority JOIN FETCH t.categoriesList",
                         Task.class
                 );
     }
@@ -77,7 +77,7 @@ public class HqlTaskStorage implements TaskStorage {
     @Override
     public List<Task> findCompletedTasks() {
         return crudRepository.query(
-                        "FROM Task t LEFT JOIN FETCH t.priority WHERE t.done = true",
+                        "SELECT DISTINCT t FROM Task t JOIN FETCH t.priority JOIN FETCH t.categoriesList WHERE t.done = true",
                         Task.class
                 );
     }
@@ -85,7 +85,7 @@ public class HqlTaskStorage implements TaskStorage {
     @Override
     public List<Task> findNewTasks() {
         return crudRepository.query(
-                        "FROM Task t LEFT JOIN FETCH t.priority WHERE t.done = false",
+                        "SELECT DISTINCT t FROM Task t JOIN FETCH t.priority JOIN FETCH t.categoriesList WHERE t.done = false",
                         Task.class
                 );
     }

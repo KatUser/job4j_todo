@@ -110,9 +110,13 @@ public class TaskController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute Task task, Model model) {
+    public String update(@ModelAttribute Task task,
+                         @RequestParam List<Integer> categoriesId,
+                         Model model) {
+        List<Category> categories = new ArrayList<>();
+        categoriesId.forEach(id -> categoryService.findCategoryById(id).ifPresent(categories::add));
+        task.setCategoriesList(categories);
         var taskIsUpdated = taskService.update(task.getId(), task);
-        model.addAttribute("priorities", priorityService.findAllPriorities());
         if (!taskIsUpdated) {
             model.addAttribute("message",
                     "Не получилось отредактировать задание");

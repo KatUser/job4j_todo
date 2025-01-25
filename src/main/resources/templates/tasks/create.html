@@ -35,7 +35,7 @@
             </div>
             <div class="mb-3">
                 <label for="title">Приоритет</label>
-               <select name="priority.id">
+                <select name="priority.id" required>
                     <option th:each="priority :${priorities}"
                             th:text="${priority.name}"
                             th:value="${priority.id}">
@@ -43,7 +43,7 @@
             </div>
             <div class="mb-3">
                 <label for="title">Категория</label>
-                <select name="categoriesId" multiple="multiple">
+                <select name="categoriesId" multiple="multiple" required>
                     <option th:each="category :${categories}"
                             th:text="${category.name}"
                             th:value="${category.id}">
