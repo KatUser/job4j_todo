@@ -16,11 +16,10 @@ public class HqlTaskStorage implements TaskStorage {
     private final CrudRepository crudRepository;
 
     @Override
-    public Optional<Task> create(Task task) {
-        crudRepository.run(session -> session.persist(task));
+    public Optional<Task> createOrEdit(Task task) {
+        crudRepository.run(session -> session.saveOrUpdate(task));
         return Optional.of(task);
     }
-
 
     @Override
     public Optional<Task> findById(int id) {
@@ -89,4 +88,5 @@ public class HqlTaskStorage implements TaskStorage {
                         Task.class
                 );
     }
+
 }

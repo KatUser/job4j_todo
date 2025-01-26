@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface TaskStorage {
 
-    Optional<Task> create(Task task);
+    Optional<Task> createOrEdit(Task task);
 
     Optional<Task> findById(int id);
 

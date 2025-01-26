@@ -112,14 +112,18 @@ public class TaskController {
     @PostMapping("/update")
     public String update(@ModelAttribute Task task,
                          @RequestParam List<Integer> categoriesId,
+                         @SessionAttribute User user,
                          Model model) {
+        int taskId = task.getId();
+        task.setUser(user);
+        task.setDone(taskService.findById(taskId).get().isDone());
         List<Category> categories = new ArrayList<>();
         categoriesId.forEach(id -> categoryService.findCategoryById(id).ifPresent(categories::add));
         task.setCategoriesList(categories);
-        var taskIsUpdated = taskService.update(task.getId(), task);
-        if (!taskIsUpdated) {
+        var savedTask = taskService.create(task);
+        if (savedTask.isEmpty()) {
             model.addAttribute("message",
-                    "Не получилось отредактировать задание");
+                    "Не удалось создать задание попробуйте заново");
             return "errors/404";
         }
         return "redirect:/tasks/all";

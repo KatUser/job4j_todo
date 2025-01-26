@@ -16,7 +16,7 @@ public class SimpleTaskService implements TaskService {
 
     @Override
     public Optional<Task> create(Task task) {
-        return storage.create(task);
+        return storage.createOrEdit(task);
     }
 
     @Override
