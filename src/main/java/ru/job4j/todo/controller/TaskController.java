@@ -12,8 +12,13 @@ import ru.job4j.todo.service.category.CategoryService;
 import ru.job4j.todo.service.priority.PriorityService;
 import ru.job4j.todo.service.task.TaskService;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+
+import static ru.job4j.todo.util.SetTimeForTasks.setTimeToTask;
 
 @Controller
 @AllArgsConstructor
@@ -32,9 +37,10 @@ public class TaskController {
     }
 
     @GetMapping("/all")
-    public String getAllTasks(Model model) {
-        model.addAttribute("tasks",
-                taskService.findAllTasks());
+    public String getAllTasks(Model model, @SessionAttribute User user) {
+        var tasks = taskService.findAllTasks();
+        tasks.forEach(task -> setTimeToTask(task, user));
+        model.addAttribute("tasks", tasks);
         return "tasks/alltasks";
     }
 
@@ -66,6 +72,7 @@ public class TaskController {
         List<Category> categories = new ArrayList<>();
         categoriesId.forEach(id -> categoryService.findCategoryById(id).ifPresent(categories::add));
         task.setCategoriesList(categories);
+        task.setCreated(LocalDateTime.now(ZoneId.of("UTC")).truncatedTo(ChronoUnit.SECONDS));
         var savedTask = taskService.create(task);
         if (savedTask.isEmpty()) {
             model.addAttribute("message",
@@ -76,13 +83,17 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public String getTaskById(Model model, @PathVariable int id) {
+    public String getTaskById(Model model,
+                              @PathVariable int id,
+                              @SessionAttribute User user) {
         var taskOptional = taskService.findById(id);
         if (taskOptional.isEmpty()) {
             model.addAttribute("message", "Такого задания нет");
             return "errors/404";
         }
-        model.addAttribute("task", taskOptional.get());
+        Task task = taskOptional.get();
+        model.addAttribute("task", setTimeToTask(task, user));
+
         return "tasks/one";
     }
 

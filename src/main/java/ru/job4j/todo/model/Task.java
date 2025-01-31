@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +21,7 @@ public class Task {
     private Integer id;
     private String title;
     private String description;
-    private LocalDateTime created
-            = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+    private LocalDateTime created;
     private boolean done;
 
     @ManyToOne
