@@ -12,7 +12,7 @@ public class TimeZonesUtil {
 
     private static final List<TimeZone> ZONES = new ArrayList<>();
 
-    private static final List<String> ZONES_COLLECTED= new ArrayList<>();
+    private static final List<String> ZONES_COLLECTED = new ArrayList<>();
 
     public static List<String> collectTimeZones() {
         for (String timeId : ZoneId.getAvailableZoneIds()) {
